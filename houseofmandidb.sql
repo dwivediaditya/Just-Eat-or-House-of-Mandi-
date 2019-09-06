@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2019 at 09:26 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: Apr 29, 2019 at 01:19 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -31,6 +33,13 @@ CREATE TABLE `admin` (
   `password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `password`) VALUES
+('admin', '123');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +57,14 @@ CREATE TABLE `customer` (
   `approved` tinyint(1) NOT NULL,
   `verificationcode` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `password`, `firstName`, `lastName`, `mobileNumber`, `address`, `verified`, `approved`, `verificationcode`) VALUES
+('dwivediaditya24@gmail.com', '1234', 'Pqr', 'wxy', '7004635496', 'Indore', 1, 1, '3ffa7'),
+('dwivediaditya@outlook.in', '12345', 'Aditya', 'Dwivedi', '7547030211', 'bhopal', 1, 1, '53bab');
 
 -- --------------------------------------------------------
 
@@ -68,6 +85,13 @@ CREATE TABLE `fooditem` (
   `categoryID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `fooditem`
+--
+
+INSERT INTO `fooditem` (`id`, `itemName`, `itemDesc`, `itemPrice`, `percentOff`, `actual_price`, `img_path`, `itemStatus`, `personCount`, `categoryID`) VALUES
+(4, 'bottle opener 2', 'glucose', 20, 50, 10, 'F:\\HouseOfMandi\\HouseOfMandiApp\\web\\images\\img1556348014827.png', 1, 2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -78,6 +102,15 @@ CREATE TABLE `fooditemcategory` (
   `id` int(11) NOT NULL,
   `categoryName` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fooditemcategory`
+--
+
+INSERT INTO `fooditemcategory` (`id`, `categoryName`) VALUES
+(2, 'Dessert'),
+(3, 'SweetDish'),
+(4, 'dinner');
 
 -- --------------------------------------------------------
 
@@ -161,22 +194,26 @@ ALTER TABLE `itemorderdetail`
 -- AUTO_INCREMENT for table `fooditem`
 --
 ALTER TABLE `fooditem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `fooditemcategory`
 --
 ALTER TABLE `fooditemcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `itemorder`
 --
 ALTER TABLE `itemorder`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `itemorderdetail`
 --
 ALTER TABLE `itemorderdetail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --
@@ -199,6 +236,7 @@ ALTER TABLE `itemorder`
 ALTER TABLE `itemorderdetail`
   ADD CONSTRAINT `ItemOrderDetail_ibfk_1` FOREIGN KEY (`itemOrderID`) REFERENCES `itemorder` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ItemOrderDetail_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `fooditem` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
